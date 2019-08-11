@@ -1,5 +1,7 @@
 package Lesson2;
 
+import java.util.Arrays;
+
 public class ArrayOperation <E>  implements Array <E>{
 
     private static final int DEFAULT_CAPACITY = 16;
@@ -14,12 +16,18 @@ public class ArrayOperation <E>  implements Array <E>{
 
     @Override
     public void add(E value) {
-
+        checkGrow();
+        data[size++] = value;
     }
 
-    @Override
-    public void addAll(E... value) {
+    private void checkGrow() {
+        if(size == data.length) {
+            this.data = grow();
+        }
+    }
 
+    private E[] grow() {
+        return Arrays.copyOf(data, data.length * 2);
     }
 
     @Override
@@ -29,11 +37,22 @@ public class ArrayOperation <E>  implements Array <E>{
 
     @Override
     public boolean remove(int index) {
-        return false;
+        if(index < -1 || index >= size) {
+            return false;
+        }
+
+        for (int i = index; i < size - 1 ; i++) {
+            data[i] = data[i + 1];
+        }
+        data[--size - 1] = null;
+        return true;
     }
 
     @Override
     public E get(int index) {
+        if(index > 0 && index < size) {
+            return data[index];
+        }
         return null;
     }
 
@@ -49,11 +68,11 @@ public class ArrayOperation <E>  implements Array <E>{
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isAmpty() {
-        return false;
+        return size == 0;
     }
 }

@@ -4,7 +4,11 @@ public interface Array<E> {
 
     void add(E value);
 
-    void addAll(E ... value);
+    default void addAll(E ... values) {
+        for (E value : values) {
+            add(value);
+        }
+    }
 
     boolean remove(E... value);
 
