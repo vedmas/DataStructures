@@ -10,7 +10,7 @@ public interface Array<E> {
         }
     }
 
-    boolean remove(E... value);
+    boolean remove(E value);
 
     boolean remove(int index);
 
@@ -23,4 +23,13 @@ public interface Array<E> {
     int size();
 
     boolean isAmpty();
+
+    void display();
+
+    int createValue();
+
+    void sortBubble();
+    void sortSelect();
+    void sortInsert();
+
 }
