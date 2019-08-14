@@ -1,4 +1,4 @@
-package Lesson2;
+package DataStructures.Lesson2;
 
 import java.util.Arrays;
 
@@ -87,7 +87,7 @@ public class ArrayOperation <E extends Object & Comparable<? super E>>  implemen
     }
 
     @Override
-    public boolean isAmpty() {
+    public boolean isEmpty() {
         return size == 0;
     }
 

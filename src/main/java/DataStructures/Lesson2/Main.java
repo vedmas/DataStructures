@@ -1,4 +1,4 @@
-package Lesson2;
+package DataStructures.Lesson2;
 
 import java.util.Arrays;
 

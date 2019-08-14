@@ -1,4 +1,4 @@
-package Lesson2;
+package DataStructures.Lesson2;
 
 public class SortedArrayOperation<E extends Object & Comparable<? super E>> extends ArrayOperation<E> {
 

@@ -1,6 +1,8 @@
-package Lesson2;
+package DataStructures.Lesson2;
 
-public interface Array<E> {
+import DataStructures.ICollection;
+
+public interface Array<E> extends ICollection {
 
     void add(E value);
 
@@ -19,10 +21,6 @@ public interface Array<E> {
     boolean contains(E values);
 
     int indexOf(E value);
-
-    int size();
-
-    boolean isAmpty();
 
     void display();
 
