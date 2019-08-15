@@ -1,5 +1,7 @@
 package DataStructures.Lesson3;
 
+import DataStructures.Lesson3.DZ.Deque.Deque;
+import DataStructures.Lesson3.DZ.Deque.DequeImpl;
 import DataStructures.Lesson3.Queue.PriorityQueue;
 import DataStructures.Lesson3.Queue.Queue;
 import DataStructures.Lesson3.Queue.QueueImpl;
@@ -12,7 +14,33 @@ public class Main {
 
     public static void main(String[] args) {
 //        stack();
-        Queue<Integer> queue = new PriorityQueue<>(5);
+//        queue();
+        Deque<Integer> deque = new DequeImpl<>(5);
+//        deque.insertTail(1);
+//        deque.insertTail(2);
+//        deque.insertTail(3);
+//        deque.insertTail(4);
+//        deque.insertTail(5);
+//        deque.insertTail(6);
+        deque.insertHead(1);
+        deque.insertHead(2);
+        deque.insertHead(3);
+        deque.insertHead(4);
+        deque.insertHead(5);
+        deque.insertHead(6);
+
+//        System.out.println("In the tail: " + deque.peekTail());
+//        System.out.println("In a head: " + deque.peekHead());
+
+        while (!deque.isEmpty()) {
+            System.out.println(deque.removeHead());
+        }
+
+
+    }
+
+    private static void queue() {
+        Queue<Integer> queue = new QueueImpl<>(5);
         queue.insert(1);
         queue.insert(3);
         queue.insert(5);
@@ -20,7 +48,7 @@ public class Main {
         queue.insert(4);
         queue.insert(6);
 
-        System.out.println("Top of queue is: " + queue.peek());
+
 
         while (!queue.isEmpty()) {
             System.out.println(queue.remove());

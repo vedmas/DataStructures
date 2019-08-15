@@ -17,7 +17,6 @@ public class StackImpl<E> implements Stack<E> {
     @Override
     public void push(E value) {
         data[size++] = value;
-
     }
 
     @Override
