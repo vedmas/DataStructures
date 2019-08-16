@@ -16,24 +16,21 @@ public class Main {
 //        stack();
 //        queue();
         Deque<Integer> deque = new DequeImpl<>(5);
-//        deque.insertTail(1);
-//        deque.insertTail(2);
-//        deque.insertTail(3);
-//        deque.insertTail(4);
-//        deque.insertTail(5);
-//        deque.insertTail(6);
-        deque.insertHead(1);
-        deque.insertHead(2);
-        deque.insertHead(3);
-        deque.insertHead(4);
-        deque.insertHead(5);
-        deque.insertHead(6);
-
-//        System.out.println("In the tail: " + deque.peekTail());
-//        System.out.println("In a head: " + deque.peekHead());
+//        deque.insertRight(1);
+//        deque.insertRight(2);
+//        deque.insertRight(3);
+//        deque.insertRight(4);
+//        deque.insertRight(5);
+//        deque.insertRight(6);
+        deque.insertLeft(1);
+        deque.insertLeft(2);
+        deque.insertLeft(3);
+        deque.insertLeft(4);
+        deque.insertLeft(5);
+        deque.insertLeft(6);
 
         while (!deque.isEmpty()) {
-            System.out.println(deque.removeHead());
+            System.out.println(deque.removeRight());
         }
 
 
