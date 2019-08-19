@@ -2,7 +2,7 @@ package DataStructures.Lesson4.LinkedList;
 
 import DataStructures.ICollection;
 
-public interface LinkedList<E> extends ICollection {
+public interface LinkedList<E> extends ICollection, Iterable<E> {
 
     void insertFirst(E value);
 

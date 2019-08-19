@@ -1,5 +1,10 @@
 package DataStructures.Lesson4.LinkedList;
 
+import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.Objects;
+import java.util.function.Consumer;
+
 public class SimpleLinkedList<E> implements LinkedList<E> {
 
     protected Entry<E> firstElement;
@@ -15,7 +20,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public E removeFirst() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         E value = firstElement.value;
@@ -35,14 +40,14 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
             previous = current;
             current = current.next;
         }
-            if(current == null){
-                return false;
-            }
-            if(current == firstElement) {
-                firstElement = current.next;
-            } else {
-                previous.next = current.next;
-            }
+        if (current == null) {
+            return false;
+        }
+        if (current == firstElement) {
+            firstElement = current.next;
+        } else {
+            previous.next = current.next;
+        }
         size--;
         return true;
     }
@@ -90,5 +95,11 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public E getFirstValue() {
         return firstElement != null ? firstElement.value : null;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return null;
+
     }
 }

@@ -34,27 +34,27 @@ public class TestIterator {
         while (!linkedList.isEmpty()) {
             doAction(linkedList.removeFirst());
         }
-//        for (Integer value : linkedList) {
+        for (Integer value : linkedList) {
+            doAction(value);
+        }
+
+//        List<Integer> arrayList = new ArrayList<>();
+//        arrayList.add(1);
+//        arrayList.add(2);
+//        arrayList.add(3);
+//
+//        for (Integer value : arrayList) {
 //            doAction(value);
 //        }
-
-        List<Integer> arrayList = new ArrayList<>();
-        arrayList.add(1);
-        arrayList.add(2);
-        arrayList.add(3);
-
-        for (Integer value : arrayList) {
-            doAction(value);
-        }
-
-        List<Integer> jdkLinkedList = new java.util.LinkedList<>();
-        jdkLinkedList.add(1);
-        jdkLinkedList.add(2);
-        jdkLinkedList.add(3);
-
-        for (Integer value : jdkLinkedList) {
-            doAction(value);
-        }
+//
+//        List<Integer> jdkLinkedList = new java.util.LinkedList<>();
+//        jdkLinkedList.add(1);
+//        jdkLinkedList.add(2);
+//        jdkLinkedList.add(3);
+//
+//        for (Integer value : jdkLinkedList) {
+//            doAction(value);
+//        }
     }
 
     private static void doAction(int value) {
