@@ -99,7 +99,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return iterator().forEachRemaining(firstElement);
 
     }
 }
