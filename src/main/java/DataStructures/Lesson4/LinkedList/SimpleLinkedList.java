@@ -11,7 +11,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         entry.next = firstElement;
         firstElement = entry;
         size++;
-
     }
 
     @Override
