@@ -2,14 +2,14 @@ package DataStructures.Lesson4.LinkedList;
 
 public class SimpleLinkedList<E> implements LinkedList<E> {
 
-    private Entry<E> firsElement;
-    private int size;
+    protected Entry<E> firstElement;
+    protected int size;
 
     @Override
     public void insertFirst(E value) {
         Entry<E> entry = new Entry<>(value);
-        entry.next = firsElement;
-        firsElement = entry;
+        entry.next = firstElement;
+        firstElement = entry;
         size++;
 
     }
@@ -19,8 +19,8 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         if(isEmpty()) {
             return null;
         }
-        E value = firsElement.value;
-        firsElement = firsElement.next;
+        E value = firstElement.value;
+        firstElement = firstElement.next;
         size--;
         return value;
     }
@@ -28,7 +28,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public boolean remove(E value) {
         Entry<E> previous = null;
-        Entry<E> current = firsElement;
+        Entry<E> current = firstElement;
         while (current != null) {
             if (current.value.equals(value)) {
                 break;
@@ -39,8 +39,8 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
             if(current == null){
                 return false;
             }
-            if(current == firsElement) {
-                firsElement = current.next;
+            if(current == firstElement) {
+                firstElement = current.next;
             } else {
                 previous.next = current.next;
             }
@@ -50,7 +50,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public boolean contains(E value) {
-        Entry<E> current = firsElement;
+        Entry<E> current = firstElement;
         while (current != null) {
             if (current.value.equals(value)) {
                 return true;
@@ -64,7 +64,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public void display() {
         System.out.println("--------------------");
-        Entry<E> current = firsElement;
+        Entry<E> current = firstElement;
         while (current != null) {
             System.out.println(current.value);
             current = current.next;
@@ -90,6 +90,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public E getFirstValue() {
-        return firsElement != null ? firsElement.value : null;
+        return firstElement != null ? firstElement.value : null;
     }
 }
