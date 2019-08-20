@@ -31,6 +31,10 @@ public class TestIterator {
         linkedList.insertFirst(1);
         linkedList.insertFirst(2);
         linkedList.insertFirst(3);
+        linkedList.insertFirst(4);
+        linkedList.insertFirst(5);
+        linkedList.insertFirst(6);
+
         while (!linkedList.isEmpty()) {
             doAction(linkedList.removeFirst());
         }

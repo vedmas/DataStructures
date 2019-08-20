@@ -88,8 +88,6 @@ public class Main4 {
         queue.insert(4);
         queue.insert(6);
 
-
-
         while (!queue.isEmpty()) {
             System.out.println(queue.remove());
         }

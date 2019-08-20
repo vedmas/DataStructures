@@ -1,7 +1,8 @@
 package DataStructures.Lesson4.LinkedList;
 
+import DataStructures.Lesson4.Iterator.ListIterator;
+
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -99,7 +100,38 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return iterator().forEachRemaining(firstElement);
+        return new LinkedListIterator<E>(this);
+    }
 
+    private static class LinkedListIterator<E> implements ListIterator {
+
+        private SimpleLinkedList list;
+        private Entry<E> current;
+        private Entry<E> previus;
+
+        public LinkedListIterator(SimpleLinkedList list) {
+            this.list = list;
+            reset();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public Object next() {
+            E nextValue = current.value;
+            previus = current;
+            current = current.next;
+            return nextValue;
+        }
+
+        @Override
+        public void reset() {
+            current = list.firstElement;
+            previus = null;
+
+        }
     }
 }
