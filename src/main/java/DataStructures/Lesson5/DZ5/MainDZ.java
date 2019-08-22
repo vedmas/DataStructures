@@ -14,12 +14,13 @@ public class MainDZ {
         things[2] = new Thing("Thing3", 2, 2);
         things[3] = new Thing("Thing4", 4, 10);
         things[4] = new Thing("Thing5", 12, 4);
-        knapsack(things);
+
+        knapsack(things.length);
 
 //        System.out.println(exponentiation(5, 3));
     }
 
-
+    // Первое ДЗ
     private static long exponentiation(long value, long exp) {
         if(exp == 1) {
             return value;
@@ -29,8 +30,10 @@ public class MainDZ {
         return value * exponentiation(value, exp - 1);
 //        return result;
     }
-    private static void knapsack(Thing[] things) {
-        if(things.length == 0) {
+
+    // Второе ДЗ
+    private static void knapsack(int length) {
+        if(things.length == 0 || length == 0) {
             return;
         }
          else if(sumWeight(things) <= MainDZ.CAPACITY_KNAPSACK) {
@@ -39,9 +42,25 @@ public class MainDZ {
             return;
         }
 
+         knapsack(length - 1);
         for (Thing thing : things) {
             System.out.println(thing.weight);
         }
+        System.out.println("--------------");
+        rotate(length);
+        
+
+
+    }
+
+    private static Thing[] rotate(int length) {
+        int pos = things.length - length;
+        Thing temp = things[pos];
+        for (int i = pos; i < things.length - 1; i++) {
+            things[i] = things[i + 1];
+        }
+        things[things.length - 1] = temp;
+        return things;
     }
 
     private static int sumWeight(Thing[] things) {
