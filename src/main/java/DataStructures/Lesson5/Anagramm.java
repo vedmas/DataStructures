@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Anagramm {
     public static void main(String[] args) {
-        new Anagramm("pack").getAnagram();
+        new Anagramm("packs").getAnagram();
     }
 
     private char[] word;
@@ -34,7 +34,8 @@ public class Anagramm {
         }
         for (int i = 0; i < lenght; i++) {
             getAnagram(lenght - 1);
-            result.add(String.valueOf(word));
+            //result.add(String.valueOf(word));
+            System.out.println(String.valueOf(word));
             rotate(lenght); //3
         }
     }
