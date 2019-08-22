@@ -20,19 +20,36 @@ public class SortedArrayOperation<E extends Object & Comparable<? super E>> exte
 
     @Override
     public int indexOf(E value) {
-        int low = 0;
-        int high = size - 1;
+//        int low = 0;
+//        int high = size - 1;
+//
+//        while (low <= high) {
+//        int mid = (low + high) / 2;
+//        if(data[mid].equals(value)) {
+//            return mid;
+//        }
+//        else if(data[mid].compareTo(value) > 0) {
+//            high = mid - 1;
+//        }
+//        else low = mid + 1;
+//        }
+//        return -1;
+        return recBinaryFind(value, 0, size - 1);
+        }
 
-        while (low <= high) {
+    private int recBinaryFind(E value, int low, int high) {
+        if(low > high) {
+            return -1;
+        }
         int mid = (low + high) / 2;
         if(data[mid].equals(value)) {
             return mid;
+        } else if(data[mid].compareTo(value) > 0) {
+            return recBinaryFind(value, low, mid - 1);
         }
-        else if(data[mid].compareTo(value) > 0) {
-            high = mid - 1;
+        else {
+            return recBinaryFind(value, mid + 1, high);
         }
-        else low = mid + 1;
-        }
-        return -1;
     }
 }
+
