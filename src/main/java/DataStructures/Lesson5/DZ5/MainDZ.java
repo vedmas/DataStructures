@@ -15,26 +15,11 @@ public class MainDZ {
         things[1] = new Thing("Thing2", 3, 2);
         things[2] = new Thing("Thing3", 2, 2);
         things[3] = new Thing("Thing4", 4, 10);
-        things[4] = new Thing("Thing5", 12, 4);
+        things[4] = new Thing("Thing5", 12, 6);
 
-        knapsack(things.length);
+        mostExpensive(kits); // Второе ДЗ
 
-        for (List<Thing> kit : kits) {
-            for (Thing thing : kit) {
-                System.out.print(thing.weight + " ");
-            }
-            System.out.println();
-            //System.out.println("-------");
-        }
-        if(kits.get(0).equals(kits.get(4))) {
-            System.out.println("yes");
-        } else System.out.println("No");
-
-        System.out.println("kits.size() = " + kits.size());
-
-        System.out.println("findDuplicate(kits.get(0), kits.get(3)) = " + findDuplicate(kits.get(0), kits.get(3)));
-
-//        System.out.println(exponentiation(5, 3));
+//        System.out.println(exponentiation(5, 3));  // Первое ДЗ
     }
 
     // Первое ДЗ
@@ -59,14 +44,9 @@ public class MainDZ {
         }
         for (int i = 0; i < length; i++) {
             knapsack(length - 1);
-//            for (Thing thing : things) {
-//                System.out.print(thing.weight + " ");
-//            }
-            if(findDuplicatesKit(packingThings(things)) == false) {
-                kits.add(packingThings(things));
+            if(!findDuplicatesKit(packingThings(things))) { //Добавляем уникальные комплекты вещей в список
+                kits.add(packingThings(things));            //с учетов максимального веса для рюкзака
             }
-//            System.out.println();
-//            System.out.println("--------------");
             rotate(length);
         }
     }
@@ -76,7 +56,7 @@ public class MainDZ {
         List<Thing> kit = new LinkedList<>();
         for (Thing thing : things) {
             limit += thing.weight;
-            if (limit < CAPACITY_KNAPSACK) {
+            if (limit <= CAPACITY_KNAPSACK) {
                 kit.add(thing);
             }
         }
@@ -92,7 +72,7 @@ public class MainDZ {
         things[things.length - 1] = temp;
         return things;
     }
-    // расчитывает общий вес вещей в списке
+    // расчитывает общий вес вещей в комплекте
     private static int sumWeight(Thing[] things) {
         int sum = 0;
         for (Thing thing : things) {
@@ -100,27 +80,57 @@ public class MainDZ {
         }
         return sum;
     }
-
+    //расчитываем стоимость вещей в комплекте
+    private static int sumPrice(List<Thing> kit) {
+        int sum = 0;
+        for (Thing thing : kit) {
+            sum += thing.price;
+        }
+        return sum;
+    }
+    // полный поиск дублей комплектов при добавлении в список
     private static boolean findDuplicatesKit(List<Thing> newKit) {
         for (List<Thing> kitInKits : kits) {
-            if(newKit.equals(kitInKits)) {
+            if (newKit.equals(kitInKits) || findDuplicateThings(newKit, kitInKits)) {
                 return true;
             }
         }
         return false;
     }
-    private static boolean findDuplicate(List<Thing> newKit, List<Thing> oldKit) {
+
+    //Сравнение комплектов на идентичность находящихся в них вещей
+    private static boolean findDuplicateThings(List<Thing> newKit, List<Thing> oldKit) {
         boolean indicator = false;
         if(newKit.size() != oldKit.size()) return false;
         for (Thing thingInNewKit : newKit) {
+            boolean tempInd = false;
             for (Thing thingInOldKit : oldKit) {
                 if(thingInNewKit.equals(thingInOldKit)) {
-                    indicator = true;
+                    tempInd = true;
                 }
-                if(!indicator) return false;
             }
+            if(!tempInd) return false;
         }
         return true;
+    }
+    // поиск самого дорого комплекта
+    private static void mostExpensive(List<List<Thing>> kits) {
+        knapsack(things.length);
+        List<Thing> best = kits.get(0);
+        int j = 0;
+        for (int i = 0; i < kits.size(); i++) {
+            if(j == kits.size()) break;
+                for (j = i + 1; j < kits.size(); j++) {
+                    if((sumPrice(kits.get(i)) < (sumPrice(kits.get(j))))) {
+                        best = kits.get(j);
+                        i = j;
+                        break;
+                    }
+                }
+        }
+        for (Thing thing : best) {
+            System.out.println("Name: " + thing.name + " Weight: " + thing.weight + " Price: " + thing.price);
+        }
     }
     }
 
