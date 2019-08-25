@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MainDZ {
-    static long result = 1;
     private static Thing[] things = new Thing[5];
     private static List<List<Thing>> kits = new ArrayList<>();
     private static final int CAPACITY_KNAPSACK = 15;
@@ -13,10 +12,11 @@ public class MainDZ {
     public static void main(String[] args) {
         things[0] = new Thing("Thing1", 1, 1);
         things[1] = new Thing("Thing2", 3, 2);
-        things[2] = new Thing("Thing3", 2, 2);
+        things[2] = new Thing("Thing3", 2, 3);
         things[3] = new Thing("Thing4", 4, 10);
-        things[4] = new Thing("Thing5", 12, 6);
+        things[4] = new Thing("Thing5", 12, 100);
 
+        System.out.println("Самые дорогие товары которые поместятся в рюкзак:");
         mostExpensive(kits); // Второе ДЗ
 
 //        System.out.println(exponentiation(5, 3));  // Первое ДЗ
@@ -123,7 +123,7 @@ public class MainDZ {
                 for (j = i + 1; j < kits.size(); j++) {
                     if((sumPrice(kits.get(i)) < (sumPrice(kits.get(j))))) {
                         best = kits.get(j);
-                        i = j;
+                        i = j - 1;
                         break;
                     }
                 }
