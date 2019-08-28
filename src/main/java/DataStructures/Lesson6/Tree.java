@@ -11,13 +11,12 @@ public interface Tree<E> extends ICollection, Iterable {
     }
 
     boolean find(E value);
-    boolean add(E value, int maxLevel);
+    boolean add(E value);
     boolean remove(E value);
     void findFull(E value);
 
     void display();
     boolean isBalanced();
-    int depthTree();
 
     void traverse(TraversMode mode);
 

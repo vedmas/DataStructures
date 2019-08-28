@@ -7,6 +7,11 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
     private Node<E> root;
     private int size;
+    private int maxLevel;
+
+    public TreeImpl(int maxLevel) {
+        this.maxLevel = maxLevel;
+    }
 
     @Override
     public boolean find(E value) {
@@ -15,25 +20,30 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
     @Override
     public void findFull(E value) {
-        if(doFind(value).parent.getValue() != null) {
-            System.out.println("Null");
-        }
-        System.out.println("Current = " + doFind(value).current.getValue() + " Parent = " + doFind(value).parent.getValue() + " Level = " + doFind(value).level);
+
+        System.out.println("Current = " + doFind(value).current.getValue() + " Level = " + doFind(value).level);
+
     }
 
     @Override
-    public boolean add(E value, int maxLevel) {
+    public boolean add(E value) {
         Node<E> node = new Node<>(value);
         NodeAndParent nodeAndParent = doFind(value);
         Node<E> previous = nodeAndParent.parent;
         if (nodeAndParent.isEmpty()) {
             this.root = node;
             return true;
-        } else if (nodeAndParent.current != null) {
+        }
+        else if (nodeAndParent.current != null) {
             return false;
-        } else if (previous.shouldBeLeft(value)) {
+        }
+        else if(doFind(previous.getValue()).level == 4) {
+            return false;
+        }
+        else if (previous.shouldBeLeft(value)) {
             previous.setLeftChild(node);
-        } else {
+        }
+        else {
             previous.setRightChild(node);
         }
         size++;
@@ -208,7 +218,14 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
     @Override
     public boolean isBalanced() {
+
         return false;
+    }
+
+    private void findLastValue( Node<E> current) {
+        if(current.getLeftChild()== null && current.getRightChild() == null)
+        findLastValue(current.getLeftChild());
+        preOrder(current.getRightChild());
     }
 
     @Override
@@ -260,11 +277,11 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         if (current == null) {
             return;
         }
+
         System.out.println(current.getValue());
         preOrder(current.getLeftChild());
+        preOrder(current.getRightChild());
         findFull(current.getValue());
-
-//        preOrder(current.getRightChild());
     }
 
     private void postOrder(Node<E> current) {
@@ -274,21 +291,6 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         postOrder(current.getLeftChild());
         postOrder(current.getRightChild());
         System.out.println(current.getValue());
-    }
-
-    @Override
-    public int depthTree() {
-        Node<E> current = root;
-        int depth = 0;
-
-        while (true) {
-            if(current == null) {
-                return depth;
-            } else {
-                current = current.getLeftChild();
-                depth++;
-            }
-        }
     }
 
     public class NodeAndParent {
