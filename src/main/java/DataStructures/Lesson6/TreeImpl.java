@@ -1,16 +1,16 @@
 package DataStructures.Lesson6;
 
-import java.util.Iterator;
-import java.util.Stack;
+import DataStructures.Lesson2.Array;
+
+import java.util.*;
 
 public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
     private Node<E> root;
     private int size;
-    private int maxLevel;
+    private List<NodeAndParent> lastValue = new ArrayList<>();
 
-    public TreeImpl(int maxLevel) {
-        this.maxLevel = maxLevel;
+    TreeImpl(int maxLevel) {
     }
 
     @Override
@@ -20,9 +20,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
     @Override
     public void findFull(E value) {
-
         System.out.println("Current = " + doFind(value).current.getValue() + " Level = " + doFind(value).level);
-
     }
 
     @Override
@@ -50,7 +48,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         return true;
     }
 
-    public NodeAndParent doFind(E value) {
+    private NodeAndParent doFind(E value) {
         if (isEmpty()) {
             return new NodeAndParent(null, null, 0);
         }
@@ -72,8 +70,6 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         } while (current != null);
         return new NodeAndParent(null, parent, 0);
     }
-
-
 
     @Override
     public boolean remove(E value) {
@@ -218,33 +214,29 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
     @Override
     public boolean isBalanced() {
-
-        return false;
+        findLastValue(root);
+        if(root.getLeftChild() == null || root.getRightChild() == null) {
+            return false;
+        }
+        lastValue.sort(Comparator.comparing(a ->a.level)); //Сортировка массива объектов по параметру level
+        return (lastValue.get(lastValue.size() - 1).level - lastValue.get(0).level) <= 1;
     }
 
+    // Выборка значений без потомков в отдельный список
     private void findLastValue( Node<E> current) {
-        if(current.getLeftChild()== null && current.getRightChild() == null)
+        if (current == null) {
+            return;
+        }
+        if(current.getLeftChild()== null && current.getRightChild() == null) {
+           lastValue.add(doFind(current.getValue()));
+        }
         findLastValue(current.getLeftChild());
-        preOrder(current.getRightChild());
+        findLastValue(current.getRightChild());
     }
 
     @Override
     public Iterator<E> iterator() {
         return null;
-//        return new Iterator<E>() {
-//            Node<E> current = root;
-//            @Override
-//            public boolean hasNext() {
-//                return current != null;
-//            }
-//
-//            @Override
-//            public E next() {
-//                E value = current.getValue();
-//
-//                return value;
-//            }
-//        };
     }
 
     @Override
@@ -277,11 +269,9 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         if (current == null) {
             return;
         }
-
         System.out.println(current.getValue());
         preOrder(current.getLeftChild());
         preOrder(current.getRightChild());
-        findFull(current.getValue());
     }
 
     private void postOrder(Node<E> current) {
