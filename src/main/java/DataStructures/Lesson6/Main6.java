@@ -2,7 +2,7 @@ package DataStructures.Lesson6;
 
 public class Main6 {
     public static void main(String[] args) {
-        //testTree();
+//        testTree();
         treeCreator(20);
     }
 
@@ -30,7 +30,7 @@ public class Main6 {
     }
 
 
-    public static void testTree() {
+    private static void testTree() {
         Tree<Integer> tree = new TreeImpl<>(4);
         System.out.println(tree.add(60));
         System.out.println(tree.add(50));
@@ -44,8 +44,8 @@ public class Main6 {
         System.out.println(tree.add(83));
         System.out.println(tree.add(20));
         System.out.println(tree.add(25));
-        System.out.println(tree.add(51));
-        System.out.println(tree.add(41));
+        System.out.println(tree.add(15));
+        System.out.println(tree.add(10));
         tree.display();
         tree.traverse(Tree.TraversMode.PRE_ORDER);
         System.out.println("tree is balanced? = " + tree.isBalanced());
