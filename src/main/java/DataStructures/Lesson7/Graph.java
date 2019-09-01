@@ -1,8 +1,6 @@
 package DataStructures.Lesson7;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Graph {
 
@@ -77,15 +75,62 @@ public class Graph {
 
         while ((!stack.empty())) {
             vertex = getNearUnvisitedVertex(stack.peek());
+            if(vertex != null) {
+                visitVertex(stack, vertex);
+            }
+            else {
+                stack.pop();
+            }
+        }
+        resetVertexState();
+    }
+
+    public void bfs(String startLabel) {
+        int startIndex = indexOf(startLabel);
+        if(startIndex == 1) {
+            throw new IllegalArgumentException("Invalid startLabel:" + startLabel);
+        }
+        Queue<Vertex> queue = new LinkedList<>();
+        Vertex vertex = vertexList.get(startIndex);
+        visitVertex(queue, vertex);
+
+        while ((!queue.isEmpty())) {
+            vertex = getNearUnvisitedVertex(queue.peek());
+            if(vertex != null) {
+                visitVertex(queue, vertex);
+            }
+            else {
+                queue.remove();
+            }
+        }
+        resetVertexState();
+    }
+
+    private void resetVertexState() {
+        for (Vertex vertex : vertexList) {
+            vertex.setVisited(false);
         }
     }
 
     private Vertex getNearUnvisitedVertex(Vertex peek) {
+        int peekIndex = vertexList.indexOf(peek);
+        for (int i = 0; i < size; i++) {
+            if(adjMat[peekIndex][i] && !vertexList.get(i).isVisited()) {
+                return vertexList.get(i);
+            }
+        }
+        return null;
     }
 
     private void visitVertex(Stack<Vertex> stack, Vertex vertex) {
         System.out.println(vertex.getLabel());
         stack.push(vertex);
+        vertex.setVisited(true);
+    }
+
+    private void visitVertex(Queue<Vertex> queue, Vertex vertex) {
+        System.out.println(vertex.getLabel());
+        queue.add(vertex);
         vertex.setVisited(true);
     }
 
