@@ -9,8 +9,10 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
     private Node<E> root;
     private int size;
     private List<NodeAndParent> lastValue = new ArrayList<>();
+    int maxLevel;
 
-    TreeImpl(int maxLevel) {
+    public TreeImpl(int maxLevel) {
+        this.maxLevel = maxLevel;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         else if (nodeAndParent.current != null) {
             return false;
         }
-        else if(doFind(previous.getValue()).level == 4) {
+        else if(doFind(previous.getValue()).level == maxLevel) {
             return false;
         }
         else if (previous.shouldBeLeft(value)) {

@@ -2,9 +2,10 @@ package DataStructures.Lesson7;
 
 public class Main7 {
     public static void main(String[] args) {
-//        testGraph();
+        testGraph();
 //        testDfs();
-        testBfs();
+//        testBfs();
+
     }
 
     private static void testGraph() {
@@ -37,8 +38,10 @@ public class Main7 {
         graph.addEdge("Курск", "Воронеж");
 
         System.out.println("Vertex count: " + graph.getSize());
-        graph.display();
-        graph.dfs("Москва");
+        //graph.display();
+//        graph.bfs("Москва");
+        graph.shortestWay("Москва", "Воронеж");
+
     }
 
     private static void testDfs() {

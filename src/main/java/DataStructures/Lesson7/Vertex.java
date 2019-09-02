@@ -3,6 +3,7 @@ package DataStructures.Lesson7;
 public class Vertex {
     private final String label;
     private boolean visited;
+    private Vertex previous;
 
 
     public Vertex(String label) {
@@ -26,5 +27,13 @@ public class Vertex {
 
     public boolean isVisited() {
         return visited;
+    }
+
+    public Vertex getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Vertex previous) {
+        this.previous = previous;
     }
 }

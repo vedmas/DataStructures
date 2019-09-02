@@ -84,7 +84,7 @@ public class Graph {
         }
         resetVertexState();
     }
-
+    //Поиск в ширину
     public void bfs(String startLabel) {
         int startIndex = indexOf(startLabel);
         if(startIndex == 1) {
@@ -102,6 +102,35 @@ public class Graph {
             else {
                 queue.remove();
             }
+        }
+        resetVertexState();
+    }
+
+    public void shortestWay(String startLabel, String finishLabel ) {
+        int startIndex = indexOf(startLabel);
+        Vertex tempPrevious;
+        if(startIndex == 1) {
+            throw new IllegalArgumentException("Invalid startLabel:" + startLabel);
+        }
+        Queue<Vertex> queue = new LinkedList<>();
+        Vertex vertex = vertexList.get(startIndex);
+        visitVertex(queue, vertex);
+        while ((!queue.isEmpty())) {
+                tempPrevious = vertex;
+            vertex = getNearUnvisitedVertex(queue.peek());
+            if(vertex != null) {
+                vertex.setPrevious(tempPrevious);
+                visitVertex(queue, vertex);
+                if(vertex.getLabel().equals(finishLabel)) {
+                    break;
+                }
+            }
+            else {
+                queue.remove();
+            }
+        }
+        for (Vertex vertexElement : vertexList) {
+            System.out.println(vertexElement.getLabel() + " - " + vertexElement.getPrevious() + " - " + vertexElement.isVisited());
         }
         resetVertexState();
     }
