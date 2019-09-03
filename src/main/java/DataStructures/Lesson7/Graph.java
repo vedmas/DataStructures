@@ -108,7 +108,7 @@ public class Graph {
     // Поиск кратчайшего пути
     public void shortestWay(String startLabel, String finishLabel ) {
         int startIndex = indexOf(startLabel);
-        Vertex backWay = null;
+        Vertex backWay;
         if(startIndex == -1) {
             throw new IllegalArgumentException("Invalid startLabel:" + startLabel);
         }
