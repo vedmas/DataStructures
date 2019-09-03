@@ -105,23 +105,30 @@ public class Graph {
         }
         resetVertexState();
     }
-
+    // Поиск кратчайшего пути
     public void shortestWay(String startLabel, String finishLabel ) {
         int startIndex = indexOf(startLabel);
-        Vertex tempPrevious;
-        if(startIndex == 1) {
+        Vertex backWay = null;
+        if(startIndex == -1) {
             throw new IllegalArgumentException("Invalid startLabel:" + startLabel);
         }
         Queue<Vertex> queue = new LinkedList<>();
+        Stack<Vertex> stack = new Stack<>();
         Vertex vertex = vertexList.get(startIndex);
         visitVertex(queue, vertex);
         while ((!queue.isEmpty())) {
-                tempPrevious = vertex;
             vertex = getNearUnvisitedVertex(queue.peek());
             if(vertex != null) {
-                vertex.setPrevious(tempPrevious);
+                vertex.setPrevious(queue.peek());
                 visitVertex(queue, vertex);
                 if(vertex.getLabel().equals(finishLabel)) {
+                    backWay = vertex;
+                    stack.push(backWay);
+                    while (!backWay.getLabel().equals(startLabel)) {
+                        stack.push(backWay.getPrevious());
+                        backWay = backWay.getPrevious();
+                    }
+                    displayShortestWay(finishLabel, stack);
                     break;
                 }
             }
@@ -129,10 +136,19 @@ public class Graph {
                 queue.remove();
             }
         }
-        for (Vertex vertexElement : vertexList) {
-            System.out.println(vertexElement.getLabel() + " - " + vertexElement.getPrevious() + " - " + vertexElement.isVisited());
-        }
         resetVertexState();
+    }
+
+    private void displayShortestWay(String finishLabel, Stack<Vertex> stack) {
+        System.out.println();
+        for (int i = 0; i < stack.size();) {
+            if(!stack.peek().getLabel().equals(finishLabel)) {
+                System.out.print(stack.pop().getLabel() + " --> ");
+            }
+            else {
+                System.out.print(stack.pop().getLabel());
+            }
+        }
     }
 
     private void resetVertexState() {
