@@ -1,4 +1,6 @@
-package DataStructures.Lesson8;
+package DataStructures.Lesson8.DZ;
+import DataStructures.Lesson8.HashTable;
+
 import java.util.LinkedList;
 
 public class ChainHashTableImpl<K, V> implements HashTable<K, V> {
@@ -46,7 +48,7 @@ public class ChainHashTableImpl<K, V> implements HashTable<K, V> {
     private int maxSize;
 
     @SuppressWarnings("unchecked")
-    ChainHashTableImpl(int maxSize) {
+    public ChainHashTableImpl(int maxSize) {
         this.maxSize = maxSize;
         this.data = new LinkedList[maxSize * 2];
     }
@@ -57,9 +59,9 @@ public class ChainHashTableImpl<K, V> implements HashTable<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if(isFull()) {
-            return false;
-        }
+//        if(isFull()) {
+//            return false;
+//        }
         int index = hashFunc(key);
         if(data[index] == null) {
             data[index] = new LinkedList<>();
@@ -78,6 +80,15 @@ public class ChainHashTableImpl<K, V> implements HashTable<K, V> {
 
     @Override
     public V remove(K key) {
+        if(find(key) != null) {
+            int index = hashFunc(key);
+            data[index].remove(find(key));
+            data[index] = null;
+        }
+        return null;
+    }
+    //Поиск элемента по ключу
+    private Node find(K key) {
         if(isEmpty()) {
             return null;
         }
@@ -86,13 +97,11 @@ public class ChainHashTableImpl<K, V> implements HashTable<K, V> {
             if(i == index && data[i] != null) {
                 for (Node<K, V> nodeElement : data[i]) {
                     if(nodeElement.key.equals(key)) {
-                        data[i].remove(nodeElement);
-                       return nodeElement.value;
+                        return nodeElement;
                     }
                 }
             }
         }
-
         return null;
     }
 

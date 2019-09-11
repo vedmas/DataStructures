@@ -2,7 +2,7 @@ package DataStructures.Lesson8;
 
 
 
-import java.util.LinkedList;
+import DataStructures.Lesson8.DZ.ChainHashTableImpl;
 
 public class Main8 {
     public static void main(String[] args) {
@@ -26,6 +26,12 @@ public class Main8 {
         hashTable.put(91, "tomato");
         hashTable.put(22, "potato");
         hashTable.put(32, "fish");
+        hashTable.put(25, "bread");
+        hashTable.put(55, "butter");
+        hashTable.put(23, "cabbage");
+        hashTable.put(70, "egg");
+        hashTable.put(0, "onion");
+        hashTable.put(100, "corn");
 //
 //        System.out.println("hashTable.size() = " + hashTable.size());
         hashTable.remove(32);
