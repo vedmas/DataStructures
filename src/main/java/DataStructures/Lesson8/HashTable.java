@@ -13,4 +13,11 @@ public interface HashTable<K, V> extends ICollection {
     boolean contains(K key);
 
     void display();
+
+    interface Entry<K, V> {
+        K getKey();
+        V getValue ();
+        void setKey(K key);
+        void setValue(V value);
+    }
 }

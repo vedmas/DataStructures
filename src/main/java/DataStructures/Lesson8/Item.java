@@ -1,7 +1,5 @@
 package DataStructures.Lesson8;
 
-import java.util.Objects;
-
 public class Item {
 
     public final int id;
@@ -24,6 +22,11 @@ public class Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

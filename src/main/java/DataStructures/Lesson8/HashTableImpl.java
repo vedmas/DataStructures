@@ -1,15 +1,14 @@
 package DataStructures.Lesson8;
 
-import java.security.Key;
 import java.util.Optional;
 
 public class HashTableImpl<K, V> implements HashTable<K, V> {
 
-    private class Entry{
+    private static class Node<K, V> implements Entry<K, V> {
         private K key;
         private V value;
 
-        public Entry(K key, V value) {
+        Node(K key, V value) {
             this.key = key;
             this.value = value;
         }
@@ -21,35 +20,40 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
                     ", value=" + value +
                     '}';
         }
+
+        @Override
+        public K getKey() {
+            return key;
+        }
+
+        @Override
+        public V getValue() {
+            return value;
+        }
+
+        @Override
+        public void setKey(K key) {
+            this.key = key;
+        }
+
+        @Override
+        public void setValue(V value) {
+            this.value = value;
+        }
     }
 
-    private Entry[] data;
+    private Node<K, V>[] data;
     private int size;
     private int maxSize;
 
     @SuppressWarnings("unchecked")
-    public HashTableImpl(int maxSize) {
+    HashTableImpl(int maxSize) {
         this.maxSize = maxSize;
-        this.data = (Entry[]) new Object[maxSize * 2];
+        this.data = new Node[maxSize * 2];
     }
 
     private int hashFunc(K key) {
         return key.hashCode() % data.length;
-    }
-
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
-    public boolean isFull() {
-        return size == maxSize;
     }
 
     @Override
@@ -63,11 +67,11 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
                 data[index].value = value;
                 return true;
             }
-            index++;
+            index+= getStep(key);
             index %= data.length;
         }
 
-        data[index] = new Entry(key, value);
+        data[index] = new Node<>(key, value);
         size++;
         return false;
     }
@@ -75,10 +79,10 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
     private int indexOff(K key) {
         int index = hashFunc(key);
         while (data[index] != null) {
-            if (data[index].key.equals(key)) {
+            if (data[index].getKey().equals(key)) {
                 return index;
             }
-            index++;
+            index+= getStep(key);
             index %= data.length;
         }
         return -1;
@@ -86,8 +90,7 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
 
     @Override
     public V get(K key) {
-        return getEntry(key).map(entry ->
-                entry.value).orElse(null);
+        return getEntry(key).map(Node::getValue).orElse(null);
     }
 
     @Override
@@ -96,7 +99,7 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
         if(index == -1) {
             return null;
         }
-        V result = data[index].value;
+        V result = data[index].getValue();
         data[index] = null;
         size--;
         return result;
@@ -107,7 +110,7 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
         return get(key) != null;
     }
 
-    private Optional<Entry> getEntry(K key) {
+    private Optional<Node<K, V>> getEntry(K key) {
         int index = indexOff(key);
         if(index != -1) {
             return Optional.of(data[index]);
@@ -123,5 +126,24 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
             System.out.println();
         }
         System.out.println("---------------");
+    }
+
+    protected int getStep(K key) {
+        return 1;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public boolean isFull() {
+        return size == maxSize;
     }
 }
